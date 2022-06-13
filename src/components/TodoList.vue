@@ -1,7 +1,8 @@
 <template>
   <div>
-    <ul class="todolist">
-      <li v-for="todo in state.todoList" :key="todo.todo">{{ todo.todo }}</li>
+    <ul class="todolist" v-for="todo,index in state.todoList" :key="todo.todo">
+      <li >{{ todo.todo }}:{{ index }}</li>
+      <button @click="deleteTodoAction(index)">削除</button>
     </ul>
     <Todo-input @add-todo="addTodoAction" />
   </div>
@@ -24,7 +25,11 @@ export default defineComponent({
     const addTodoAction = (value:string)=>{
       state.todoList.push({todo:value})
     }
-    return { state,addTodoAction };
+    const deleteTodoAction = (index: number) => {
+      console.log(index)
+      state.todoList.splice(index,1)
+    }
+    return { state,addTodoAction,deleteTodoAction };
   },
 });
 </script>
